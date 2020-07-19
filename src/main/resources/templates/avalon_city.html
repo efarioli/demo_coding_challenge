@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <style>
+        #logoutDiv > form > span {
+            padding: 1.2em;
+            margin-right: 1em;
+            background: rgb(217, 220, 220);
+            color: #212529;
+
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .row {
+            padding: 1em;
+        }
+
+        .card {
+            margin-top: 3em;
+        }
+
+        li {
+            list-style-type: circle !important;
+        }
+
+        ul {
+            padding-left: 1em;
+            margin-left: 2em;
+        }
+
+        #modal1 > div.modal-footer {
+            height: 6em;
+        }
+
+
+
+    </style>
+
+    <title>Home</title>
+</head>
+<body class="p-3 mb-2 bg-light text-black">
+<div class="container">
+    <div class="row">
+        <div class="col  l6 s12">
+            <a th:href="@{/avalon_city}" >Avalon City</a>
+        </div>
+        <div class="col  l6 s12">
+            <a th:href="@{/aceparks}" class="pull-right">AceParks</a>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <form class="col s12" action="#" th:action="@{/avalon_city}" th:object="${newCredential}"
+              method="post">
+
+            <div class="card">
+
+                <div class="row">
+                    <div class="input-field col  l6 s12">
+                        <input id="email2" type="email" class="validate" required th:field="*{email}">
+                        <label for="email2">Email</label>
+                    </div>
+                    <div class="input-field col l6 s12">
+                        <select required th:field="*{title}">
+                            <option th:value="'Mr'" th:text="Mr"></option>
+                            <option th:value="'Mrs'" th:text="Mrs"></option>
+                            <option th:value="'Miss'" th:text="Miss"></option>
+                            <option th:value="'Ms'" th:text="Ms"></option>
+                            <option th:value="'Mx'" th:text="Mx"></option>
+                            <option th:value="'Sir'" th:text="Sir"></option>
+                            <option th:value="'Dr'" th:text="Dr"></option>
+                            <option th:value="'Lady'" th:text="Lady"></option>
+                            <option th:value="'Lord'" th:text="Lord"></option>
+
+                        </select>
+                        <label>Title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col  l6 s12">
+                        <input id="firstname" type="text" class="validate" th:field="*{firstName}">
+                        <label for="firstname">First Name</label>
+                    </div>
+                    <div class="input-field col  l6 s12">
+                        <input id="lastname" type="text" class="validate" th:field="*{lastName}">
+                        <label for="lastname">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col  l6 s12">
+                        <input id="address1" type="text" class="validate" required th:field="*{addressLine1}">
+                        <label for="address1">Address Line 1</label>
+                    </div>
+                    <div class="input-field col  l6 s12">
+                        <input id="address2" type="text" class="validate" th:field="*{addressLine2}">
+                        <label for="address2">Address Line 2</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col  l6 s12">
+                        <input id="city" type="text" class="validate" required th:field="*{city}">
+                        <label for="city">City</label>
+                    </div>
+                    <div class="input-field col  l6 s12">
+                        <input id="postcode" type="text" class="validate" required
+                               pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}"
+                               th:field="*{postcode}">
+                        <label for="postcode">Post Code</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col  l6 s12">
+                        <input id="telephone" type="tel" class="validate" required th:field="*{phoneNumber}">
+                        <label for="telephone">Telephone</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-large col l6 s6 offset-s3 offset-l3">Register</button>
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <script>
+    </script>
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Attention</h4>
+            <h5>We found the following errors:</h5>
+            <ul th:each="error : ${errors}">
+                <li th:text="${error.getValue()}"></li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn btn-large">Close</a>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+<!--For opening the note modal-->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        M.AutoInit();
+
+
+    });
+
+
+</script>
+<script th:if="${errors.size() > 0 }">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        M.AutoInit();
+
+        var elem = document.getElementById('modal1');
+        console.log(elem);
+        // console.log(elems.item(0));
+        // elems.item(0).open();
+        //  var instance = M.Modal.init(elems);
+        // // var instance = elems.item(0);
+        // instance.open();
+        // instance.open();
+        var instance = M.Modal.getInstance(elem);
+        instance.open();
+    });
+
+
+</script>
+</body>
+</html>
